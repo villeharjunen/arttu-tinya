@@ -112,7 +112,7 @@ const passwordForm=document.getElementById('password-form');
 const passwordInput=document.getElementById('wedding-password');
 const passwordError=document.getElementById('password-error');
 document.getElementById('open').onclick=()=>{passwordForm.reset();passwordError.hidden=true;passwordDialog.showModal();passwordInput.focus();};
-passwordForm.onsubmit=e=>{e.preventDefault();if(passwordInput.value==='umbria'){passwordDialog.close();passwordForm.reset();entry.hidden=true;site.hidden=false;window.scrollTo(0,0);}else{passwordError.hidden=false;passwordInput.select();passwordInput.focus();}};
+passwordForm.onsubmit=e=>{e.preventDefault();if(passwordInput.value==='testi'){passwordDialog.close();passwordForm.reset();entry.hidden=true;site.hidden=false;window.scrollTo(0,0);}else{passwordError.hidden=false;passwordInput.select();passwordInput.focus();}};
 document.getElementById('password-cancel').onclick=()=>passwordDialog.close();
 passwordDialog.addEventListener('close',()=>{passwordForm.reset();passwordError.hidden=true;});
 
