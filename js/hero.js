@@ -16,10 +16,11 @@
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const pause = document.getElementById('film-pause');
   let paused = motion.matches;
+  const arrows = [];
 
   function updatePause() {
     if (!pause) return;
-    pause.textContent = paused ? 'Jatka kuvanauhaa' : 'Pysäytä kuvanauha';
+    pause.textContent = SITE_LANGUAGE.t(paused ? 'Jatka kuvanauhaa' : 'Pysäytä kuvanauha');
     pause.setAttribute('aria-pressed', String(paused));
   }
   if (pause) pause.addEventListener('click', () => { paused = !paused; updatePause(); });
@@ -53,11 +54,17 @@
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'film-arrow ' + cls;
-    b.setAttribute('aria-label', label);
+    b.setAttribute('data-label-fi', label);
+    b.setAttribute('aria-label', SITE_LANGUAGE.t(label));
     b.textContent = symbol;
     b.addEventListener('click', () => jump(direction));
     hero.appendChild(b);
+    arrows.push(b);
   }
+  window.addEventListener('site-language-change', () => {
+    updatePause();
+    arrows.forEach(button => button.setAttribute('aria-label', SITE_LANGUAGE.t(button.dataset.labelFi)));
+  });
 
   function tick(now) {
     const dt = last ? Math.min(now - last, 60) : 0;

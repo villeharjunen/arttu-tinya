@@ -14,7 +14,7 @@
     Object.entries(values).forEach(([unit, value]) => {
       document.getElementById('cd-' + unit).textContent = String(value).padStart(2, '0');
     });
-    if (remaining === 0) document.getElementById('countdown-note').textContent = 'Häähetki on täällä!';
+    if (remaining === 0) document.getElementById('countdown-note').textContent = SITE_LANGUAGE.t('Häähetki on täällä!');
   }
 
   update();

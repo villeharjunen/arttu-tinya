@@ -10,7 +10,7 @@
     e.preventDefault();
     error.hidden = true;
     submit.disabled = true;
-    submit.textContent = 'Lähetetään…';
+    submit.textContent = SITE_LANGUAGE.t('Lähetetään…');
     try {
       const res = await fetch(CONFIG.rsvpEndpoint, { method: 'POST', body: new URLSearchParams(new FormData(form)) });
       const data = await res.json();
@@ -18,11 +18,11 @@
       form.hidden = true;
       thanks.hidden = false;
     } catch (err) {
-      error.textContent = 'Lähetys epäonnistui. Tarkista nettiyhteys ja yritä uudelleen. Jos ongelma jatkuu, ilmoittaudu suoraan Arttulle tai Tinyalle.';
+      error.textContent = SITE_LANGUAGE.t('Lähetys epäonnistui. Tarkista nettiyhteys ja yritä uudelleen. Jos ongelma jatkuu, ilmoittaudu suoraan Arttulle tai Tinyalle.');
       error.hidden = false;
     } finally {
       submit.disabled = false;
-      submit.textContent = 'Lähetä ilmoittautuminen';
+      submit.textContent = SITE_LANGUAGE.t('Lähetä ilmoittautuminen');
     }
   };
 
