@@ -9,7 +9,7 @@
   --paper: #f2eee7;
   --sand: #e7e0d4;
   --linen: #e5ded2;
-  --muted: #756b60;
+  --muted: #655b50;
   --button: #514131;
   --button-hover: #75604b;
   --light: #fffaf1;
@@ -72,7 +72,7 @@ h3 { line-height: 1.2; }
 h2 em, h3 em { font-weight: 400; font-style: italic; }
 
 .eyebrow {
-  font: 10px/1.6 var(--sans);
+  font: 12px/1.6 var(--sans);
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--muted);
@@ -91,7 +91,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   border-radius: 0;
   background: var(--button);
   color: #fffaf2;
-  font: 10px/1.5 var(--sans);
+  font: 12px/1.5 var(--sans);
   letter-spacing: .16em;
   text-transform: uppercase;
   text-decoration: none;
@@ -123,7 +123,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   width: 100%;
   padding: 44px 18px;
 }
-.entry .eyebrow { color: #7b6751; }
+.entry .eyebrow { color: #6a5745; }
 .entry h1 {
   font-size: clamp(42px, 6vw, 68px);
   font-style: normal;
@@ -180,7 +180,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .open-label {
   display: block;
   margin-top: 28px;
-  font: 9px/1.6 var(--sans);
+  font: 12px/1.6 var(--sans);
   letter-spacing: .2em;
   text-transform: uppercase;
 }
@@ -208,11 +208,12 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   letter-spacing: -.04em;
   margin: 15px 0;
 }
-#password-dialog p { font: 12px/1.8 var(--sans); }
+#password-dialog p { font: 14px/1.8 var(--sans); }
+#password-dialog .eyebrow { font-size: 12px; }
 #password-dialog label {
   display: block;
   margin: 18px 0 6px;
-  font: 10px/1.6 var(--sans);
+  font: 13px/1.6 var(--sans);
   text-align: left;
 }
 #password-dialog input {
@@ -277,7 +278,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 #site > header nav a {
   padding: 10px 0;
   border-bottom: 1px solid transparent;
-  font: 10px/1.5 var(--sans);
+  font: 12px/1.5 var(--sans);
   letter-spacing: .18em;
   text-transform: uppercase;
   text-decoration: none;
@@ -357,12 +358,12 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .hero-location,
 .hero-date {
   margin: 0;
-  font: 12px/1.6 var(--sans);
+  font: 14px/1.6 var(--sans);
   letter-spacing: .2em;
 }
 .hero-location {
   margin-bottom: 12px;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: .34em;
   text-transform: uppercase;
 }
@@ -391,7 +392,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   background: #34271d40;
   backdrop-filter: blur(8px);
   color: var(--light);
-  font: 9px/1.5 var(--sans);
+  font: 11px/1.5 var(--sans);
   letter-spacing: .12em;
   text-transform: uppercase;
 }
@@ -458,15 +459,15 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .countdown span {
   display: block;
   margin-top: 5px;
-  color: #695b4c;
-  font: 8px/1.6 var(--sans);
+  color: #5a4d3f;
+  font: 12px/1.6 var(--sans);
   letter-spacing: .14em;
   text-transform: uppercase;
 }
 .countdown-note {
   margin: 0;
   color: #655849;
-  font: 10px/1.6 var(--sans);
+  font: 13px/1.6 var(--sans);
 }
 
 /* ---------- Meistä (kuva taustana) ---------- */
@@ -523,7 +524,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 #story p {
   max-width: 510px;
   margin: 0 0 20px;
-  font: 14px/1.95 var(--sans);
+  font: 16px/1.95 var(--sans);
   text-shadow: 0 1px 8px #0003;
 }
 #story .primary {
@@ -574,26 +575,27 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .flip-toggle {
   display: block;
   width: 100%;
-  height: 420px;
+  height: 100%;
   padding: 0;
   border: 0;
   background: transparent;
   color: inherit;
   text-align: left;
 }
+/* Puolet ovat päällekkäin samassa ruudukon solussa, joten kortti kasvaa pidemmän puolen mittaiseksi. */
 .flip-inner {
   position: relative;
-  display: block;
+  display: grid;
   width: 100%;
   height: 100%;
+  min-height: 420px;
   transform-style: preserve-3d;
   transition: transform .65s;
 }
 .flip-toggle[aria-pressed="true"] .flip-inner { transform: rotateY(180deg); }
 
 .flip-face {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   padding: 24px 20px;
@@ -613,8 +615,8 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   transform: rotateY(180deg);
 }
 .flip-face small {
-  color: #74634f;
-  font: 8px/1.7 var(--sans);
+  color: #64543f;
+  font: 12px/1.6 var(--sans);
   letter-spacing: .11em;
   text-transform: uppercase;
 }
@@ -629,12 +631,12 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   margin: 12px 0;
   font-size: 24px;
 }
-.day-description { font: 11px/1.85 var(--sans); }
+.day-description { font: 14px/1.75 var(--sans); }
 .flip-hint {
   margin-top: auto;
   padding-top: 15px;
   color: #6e5b46;
-  font: 9px/1.6 var(--sans);
+  font: 12px/1.6 var(--sans);
   letter-spacing: .04em;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -644,19 +646,14 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .schedule-row b { color: #6d5841; }
 .flip-back .flip-hint { flex-shrink: 0; }
 
-.schedule {
-  display: block;
-  min-height: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
+.schedule { display: block; }
 .schedule-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.25fr);
   gap: 8px;
   padding: 6px 0;
   border-bottom: 1px solid var(--line);
-  font: 10px/1.5 var(--sans);
+  font: 13px/1.45 var(--sans);
 }
 .schedule-no-time { grid-template-columns: 1fr; }
 .schedule-row b {
@@ -679,7 +676,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .script-accent {
   max-width: 740px;
   margin: 0 auto;
-  color: #8a745a;
+  color: #705b46;
   font-family: Georgia, serif;
   font-size: 20px;
   font-style: italic;
@@ -713,11 +710,11 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .travel-copy p {
   max-width: 740px;
   margin: 0 0 17px;
-  font: 12px/1.9 var(--sans);
+  font: 15px/1.85 var(--sans);
 }
 .travel-copy .eyebrow {
-  color: #77624b;
-  font: 10px/1.6 var(--sans);
+  color: #6b5642;
+  font: 12px/1.6 var(--sans);
   letter-spacing: .16em;
 }
 .travel-copy h4 {
@@ -726,8 +723,8 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   font-weight: 400;
 }
 .travel-copy .fine-note {
-  color: #7a6a57;
-  font: 10px/1.7 var(--sans);
+  color: #65553f;
+  font: 13px/1.7 var(--sans);
 }
 
 .venue-map {
@@ -743,10 +740,10 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   max-width: 740px;
   margin-left: auto;
   margin-right: auto;
-  color: #73624f;
-  font: 11px/1.8 var(--sans);
+  color: #65553f;
+  font: 14px/1.8 var(--sans);
 }
-.venue-map .map-note { font-size: 10px; }
+.venue-map .map-note { font-size: 13px; }
 .venue-map iframe {
   display: block;
   width: 100%;
@@ -754,7 +751,6 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   margin: 22px 0 16px;
   border: 0;
 }
-.venue-map .primary { font-size: 9px; }
 
 /* ---------- Kuvagalleria ---------- */
 
@@ -795,7 +791,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 .gift-section p {
   max-width: 680px;
   margin: 0 auto;
-  font: 14px/1.9 var(--sans);
+  font: 16px/1.9 var(--sans);
 }
 
 /* ---------- Ilmoittautuminen ---------- */
@@ -815,7 +811,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   display: block;
   margin-bottom: 20px;
   color: #675744;
-  font: 10px/1.7 var(--sans);
+  font: 14px/1.6 var(--sans);
 }
 .form-card input,
 .form-card select,
@@ -849,14 +845,14 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 #rsvp-error {
   margin: 16px 0 0;
   color: var(--error);
-  font: 10px/1.7 var(--sans);
+  font: 14px/1.6 var(--sans);
 }
 
 .thanks {
   padding: 24px 0;
   text-align: center;
 }
-.thanks p { font: 12px/1.8 var(--sans); }
+.thanks p { font: 15px/1.8 var(--sans); }
 .thanks .primary { min-height: 44px; }
 
 /* ---------- Alatunniste ---------- */
@@ -869,7 +865,7 @@ footer {
 }
 footer p {
   margin: 0;
-  font: 10px/1.7 var(--sans);
+  font: 12px/1.7 var(--sans);
   letter-spacing: .13em;
 }
 footer button {
@@ -878,7 +874,7 @@ footer button {
   border: 0;
   background: none;
   color: #d4c1a6;
-  font: 10px/1.6 var(--sans);
+  font: 13px/1.6 var(--sans);
 }
 
 /* ---------- Näyttökoon mukaan ---------- */
@@ -930,12 +926,14 @@ footer button {
     gap: clamp(15px, 4.5vw, 26px);
   }
   #site > header nav a {
-    min-height: 36px;
-    font-size: 8px;
-    letter-spacing: .1em;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    font-size: 11px;
+    letter-spacing: .08em;
   }
 
-  .entry .eyebrow { font-size: 9px; }
   .entry h1 { font-size: 45px; }
 
   #home {
@@ -955,7 +953,7 @@ footer button {
     letter-spacing: -.05em;
   }
   .hero-location {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: .28em;
   }
   .hero-location::before {
@@ -963,7 +961,7 @@ footer button {
     margin-bottom: 20px;
   }
   .hero-date {
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: .15em;
   }
   .film-controls { bottom: 23px; }
@@ -980,11 +978,8 @@ footer button {
   .countdown { gap: 18px; }
   .countdown > div { min-width: 48px; }
   .countdown strong { font-size: 32px; }
-  .countdown span {
-    font-size: 8px;
-    letter-spacing: .03em;
-  }
-  .countdown-note { font-size: 9px; }
+  .countdown span { letter-spacing: .03em; }
+  .countdown-note { font-size: 12px; }
 
   #story {
     align-items: end;
@@ -1008,7 +1003,7 @@ footer button {
   }
   #story p {
     margin-bottom: 17px;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.9;
   }
   #story .primary { margin-top: 7px; }
@@ -1028,8 +1023,7 @@ footer button {
   .flip-card { width: auto; }
   .flip-face { padding: 25px 23px; }
   .flip-face strong { font-size: 29px; }
-  .day-description { font-size: 12px; }
-  .schedule-row { font-size: 11px; }
+  .day-description { font-size: 15px; }
 
   .travel-heading { margin-bottom: 28px; }
   .travel-heading h2 { font-size: 35px; }
@@ -1044,12 +1038,11 @@ footer button {
   .travel-row img,
   .travel-row img.villa-detail { height: 285px; }
   .travel-copy h3 { font-size: 31px; }
-  .travel-copy p { font-size: 13px; }
   .venue-map iframe { height: 260px; }
 
   .photos { gap: 9px; }
 
-  .gift-section p { font-size: 13px; }
+  .gift-section p { font-size: 15px; }
 
   .rsvp {
     grid-template-columns: 1fr;
@@ -1058,10 +1051,7 @@ footer button {
   .rsvp h2 { font-size: 36px; }
 
   footer { padding: 28px 20px; }
-  footer p {
-    font-size: 9px;
-    letter-spacing: .08em;
-  }
+  footer p { letter-spacing: .08em; }
 }
 
 @media (max-width: 360px) {
