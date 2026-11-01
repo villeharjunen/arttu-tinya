@@ -25,7 +25,7 @@ The wedding site for Arttu & Tinya (Umbria, 20–23 May 2027), served by GitHub 
 8. **Mobile first.** Most guests will open the link on a phone. Check every layout change at phone width (about 375px) with no horizontal scrolling.
 9. **Images:** resize and compress new photos to about 2000px on the long edge and under 1 MB, like the existing ones, add meaningful `alt` text in Finnish, and use the existing naming pattern (`hero-N.jpg`, `gallery-N.jpg`, `venue-N.jpg`).
 10. **Don't commit the old single-file versions** (`Arttu_ja_Tinya_haasivut_v*.html`). They are gitignored and kept locally for reference only.
-11. **Git:** commit or push only when the user asks. Write short, imperative commit messages in English. Never force-push `main`.
+11. **Git:** work on `main` by default and create a new branch only when the user asks for one. Commit or push only when the user asks. Write short, imperative commit messages in English. Never force-push `main`.
 12. **Placeholders stay visible.** If information is missing (for example the gift account or accommodation details), leave an obvious placeholder such as `XXX` instead of inventing content.
 
 ## Checking a change
