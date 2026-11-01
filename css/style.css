@@ -674,8 +674,7 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
 }
 .travel-heading h2 { margin: 10px 0 8px; }
 .script-accent {
-  max-width: 740px;
-  margin: 0 auto;
+  margin: 0;
   color: #705b46;
   font-family: Georgia, serif;
   font-size: 20px;
@@ -737,9 +736,6 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   font-size: 28px;
 }
 .venue-map p {
-  max-width: 740px;
-  margin-left: auto;
-  margin-right: auto;
   color: #65553f;
   font: 14px/1.8 var(--sans);
 }
