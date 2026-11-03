@@ -812,6 +812,47 @@ h2 em, h3 em { font-weight: 400; font-style: italic; }
   object-fit: cover;
 }
 
+/* ---------- Usein kysyttyä ---------- */
+
+.faq-section { background: var(--sand); }
+.faq-section h2 { text-align: center; }
+.faq-list {
+  width: min(100%, 840px);
+  margin: 28px auto 0;
+  border-bottom: 1px solid var(--line);
+}
+.faq-list details { border-top: 1px solid var(--line); }
+.faq-list summary {
+  position: relative;
+  display: block;
+  padding: 18px 36px 18px 0;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.5;
+  list-style: none;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  color: #705b46;
+  content: '+';
+  font: 24px/1 var(--sans);
+  transform: translateY(-50%);
+}
+.faq-list details[open] summary::after { content: '−'; }
+.faq-list summary:focus-visible {
+  outline: 2px solid #8a6745;
+  outline-offset: 3px;
+}
+.faq-list details p {
+  max-width: 740px;
+  margin: 0;
+  padding: 0 36px 20px 0;
+  font: 15px/1.8 var(--sans);
+}
+
 /* ---------- Muistaminen ---------- */
 
 .section.gift-section {
