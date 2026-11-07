@@ -451,6 +451,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   object-fit: cover;
   object-position: 50% 55%;
 }
+.film-track img:nth-child(even) { filter: grayscale(1); }
 
 .hero-caption {
   position: absolute;
