@@ -153,6 +153,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   background: linear-gradient(145deg, #f8f0e2 0%, #e8d8c0 52%, #d2bea0 100%);
   box-shadow: 0 22px 42px #43301e30, inset 0 0 0 6px #f7efe3aa;
   perspective: 900px;
+  transform-style: preserve-3d;
   transition: transform .45s ease, box-shadow .45s ease;
 }
 .envelope-button:hover .envelope {
@@ -190,7 +191,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   color: #705439;
   font: italic 300 30px/1 var(--display);
   transform: translate(-50%, 32px);
-  transition: transform .75s ease;
+  transition: transform 1.15s cubic-bezier(.2,.8,.2,1) .18s;
 }
 .envelope-flap {
   position: absolute;
@@ -199,18 +200,19 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   height: 62%;
   border: 1px solid #b39a77;
   border-top: 0;
-  background: linear-gradient(155deg, #f5ead7, #dfc9a8);
+  background: linear-gradient(155deg, #f5ead7 0%, #ead8bd 58%, #d8c09f 100%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: 50% 0;
   backface-visibility: hidden;
-  transition: transform .72s cubic-bezier(.2,.72,.25,1);
+  will-change: transform;
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1) .12s;
 }
 .envelope-ribbon {
   position: absolute;
   z-index: 5;
   background: linear-gradient(90deg, #795047, #a97461 48%, #70463e);
   box-shadow: inset 1px 0 #f4dccc88, inset -1px 0 #452b2788, 0 1px 3px #442a2544;
-  transition: opacity .25s ease, transform .55s ease;
+  transition: opacity .55s ease, transform .7s ease;
 }
 .ribbon-vertical {
   inset: 0 auto 0 45%;
@@ -230,7 +232,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   width: 92px;
   height: 54px;
   transform: translate(-50%, -50%);
-  transition: opacity .25s ease, transform .4s ease;
+  transition: opacity .55s ease, transform .7s ease;
 }
 .envelope-bow span {
   position: absolute;
@@ -263,7 +265,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
 }
 .envelope-button.is-opening .envelope-flap,
 .envelope-button.is-open .envelope-flap {
-  transform: rotateX(180deg);
+  transform: rotateX(-175deg);
 }
 .envelope-button.is-opening .envelope-letter,
 .envelope-button.is-open .envelope-letter {

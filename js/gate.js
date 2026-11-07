@@ -54,7 +54,7 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       finishOpening();
     } else {
-      window.setTimeout(finishOpening, 850);
+      window.setTimeout(finishOpening, 1450);
     }
   }
 
