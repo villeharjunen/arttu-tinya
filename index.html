@@ -5,6 +5,9 @@
   <meta content="width=device-width,initial-scale=1" name="viewport"/>
   <meta content="noindex, nofollow" name="robots"/>
   <title>Arttu &amp; Tinya · Umbria 2027</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
@@ -13,8 +16,14 @@
       <p class="eyebrow">Umbria · 20–23.5.2027</p>
       <h1>Arttu &amp; Tinya</h1>
       <div aria-hidden="true" class="orn">༺ ❦ ༻</div>
-      <button aria-label="Avaa hääkutsu" class="envelope-button" id="open">
-        <div class="envelope"><span class="seal">A&amp;T</span></div>
+      <button aria-controls="envelope-art" aria-expanded="false" aria-label="Avaa hääkutsu" class="envelope-button" id="open" type="button">
+        <span class="envelope" id="envelope-art">
+          <span aria-hidden="true" class="envelope-letter">A&amp;T</span>
+          <span aria-hidden="true" class="envelope-flap"></span>
+          <span aria-hidden="true" class="envelope-ribbon ribbon-vertical"></span>
+          <span aria-hidden="true" class="envelope-ribbon ribbon-horizontal"></span>
+          <span aria-hidden="true" class="envelope-bow"><span></span><span></span><i></i></span>
+        </span>
         <span class="open-label">Avaa kutsu</span>
       </button>
     </div>

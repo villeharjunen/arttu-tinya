@@ -7,7 +7,9 @@
   const form = document.getElementById('password-form');
   const input = document.getElementById('wedding-password');
   const error = document.getElementById('password-error');
+  const openButton = document.getElementById('open');
   const UNLOCK_KEY = 'arttu-tinya-unlocked';
+  let opening = false;
 
   function isUnlocked() {
     try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; }
@@ -29,20 +31,49 @@
     input.focus();
   }
 
-  document.getElementById('open').onclick = () => {
-    if (isUnlocked()) showSite(); else askPassword();
-  };
+  function openEnvelope() {
+    if (isUnlocked()) {
+      showSite();
+      return;
+    }
+    if (openButton.classList.contains('is-open')) {
+      askPassword();
+      return;
+    }
+    if (opening) return;
+
+    opening = true;
+    openButton.setAttribute('aria-expanded', 'true');
+    openButton.classList.add('is-opening');
+    const finishOpening = () => {
+      openButton.classList.remove('is-opening');
+      openButton.classList.add('is-open');
+      opening = false;
+      askPassword();
+    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finishOpening();
+    } else {
+      window.setTimeout(finishOpening, 850);
+    }
+  }
+
+  openButton.addEventListener('click', openEnvelope);
 
   document.getElementById('back').onclick = () => {
     site.hidden = true;
     entry.hidden = false;
+    openButton.classList.remove('is-open', 'is-opening');
+    openButton.setAttribute('aria-expanded', 'false');
+    opening = false;
+    openButton.focus();
     history.replaceState(null, '', location.pathname + location.search);
     window.scrollTo(0, 0);
   };
 
   window.addEventListener('hashchange', () => {
     if (site.hidden && location.hash.length > 1) {
-      if (isUnlocked()) showSite(); else if (!dialog.open) askPassword();
+      if (isUnlocked()) showSite(); else if (!dialog.open) openEnvelope();
     }
   });
 
@@ -64,5 +95,5 @@
     error.hidden = true;
   });
 
-  if (isUnlocked()) showSite(); else if (location.hash.length > 1) askPassword();
+  if (isUnlocked()) showSite(); else if (location.hash.length > 1) openEnvelope();
 })();
