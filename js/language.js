@@ -102,6 +102,8 @@
     'Kuvagallerian kuva 1': 'Bild 1 i galleriet',
     'Kuvagallerian kuva 2': 'Bild 2 i galleriet',
     'Kuvagallerian kuva 3': 'Bild 3 i galleriet',
+    'Kuvagallerian kuva 4': 'Bild 4 i galleriet',
+    'Kuvagallerian kuva 5': 'Bild 5 i galleriet',
     'Usein kysyttyä': 'Vanliga frågor',
     'Milloin ja missä vihkiminen järjestetään?': 'När och var äger vigseln rum?',
     'Vihkiminen alkaa perjantaina 21.5.2027 klo 14.00 Antico Borgo Carcerissa, osoitteessa Via delle Carceri 6, Torre del Colle, Bevagna.': 'Vigseln börjar fredagen den 21 maj 2027 kl. 14.00 på Antico Borgo Carceri, Via delle Carceri 6, Torre del Colle, Bevagna.',

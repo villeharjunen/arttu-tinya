@@ -645,9 +645,6 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   max-width: 570px;
   margin: 0 0 28px;
   color: #fffaf2;
-  font-size: clamp(38px, 4.1vw, 61px);
-  font-weight: 300;
-  letter-spacing: -.04em;
   text-wrap: balance;
 }
 #story p {
@@ -1186,7 +1183,6 @@ footer button {
   #story h2 {
     max-width: 480px;
     margin-bottom: 22px;
-    font-size: clamp(36px, 8.7vw, 49px);
   }
   #story p {
     margin-bottom: 17px;
