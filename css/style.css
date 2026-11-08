@@ -1025,6 +1025,43 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   color: var(--ink);
   font: 16px/1.5 var(--sans);
 }
+.form-card .rsvp-events {
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: 18px;
+  border: 1px solid #b6a58d66;
+}
+.form-card .rsvp-events legend {
+  padding: 0 6px;
+  color: #675744;
+  font: 16px/1.5 var(--sans);
+}
+.form-card .rsvp-events > p {
+  margin: 0 0 10px;
+  color: #675744;
+  font: 14px/1.6 var(--sans);
+}
+.form-card .rsvp-events .event-choice {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #b6a58d66;
+  background: #f4efe5;
+  cursor: pointer;
+  font: 14px/1.5 var(--sans);
+}
+.form-card .rsvp-events .event-choice + .event-choice { border-top: 0; }
+.form-card .rsvp-events input[type="checkbox"] {
+  width: 22px;
+  min-height: 22px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--ink);
+}
 .form-card textarea {
   min-height: 110px;
   resize: vertical;

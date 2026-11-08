@@ -250,6 +250,14 @@
           <label>Nimi<input autocomplete="name" name="name" required=""/></label>
           <label>Sähköposti<input autocomplete="email" name="email" required="" type="email"/></label>
           <label>Osallistuminen<select name="attendance"><option value="Osallistun mielelläni">Osallistun mielelläni</option><option value="Valitettavasti en pääse">Valitettavasti en pääse</option></select></label>
+          <fieldset aria-describedby="rsvp-events-help" class="rsvp-events" hidden="" id="rsvp-events">
+            <legend>Viikonlopun tapahtumat</legend>
+            <p id="rsvp-events-help">Valitse vähintään yksi tapahtuma, johon osallistut.</p>
+            <label class="event-choice"><input name="thursdayRun" type="checkbox" value="TRUE"/><span>Osallistun torstain yhteislenkille</span></label>
+            <label class="event-choice"><input name="thursdayPizzaParty" type="checkbox" value="TRUE"/><span>Osallistun torstain tervetuliaispizzapartyyn</span></label>
+            <label class="event-choice"><input name="fridayWedding" type="checkbox" value="TRUE"/><span>Osallistun perjantain hääpäivään</span></label>
+            <label class="event-choice"><input name="saturdayPoolParty" type="checkbox" value="TRUE"/><span>Osallistun lauantain pool party -päivään</span></label>
+          </fieldset>
           <label>Avecin nimi<input autocomplete="off" name="guest"/></label>
           <label>Ruokavaliot, allergiat tai muu viesti<textarea name="message" rows="3"></textarea></label>
           <label for="song-request">Tämän biisin haluan soivan viikonlopun aikana<input id="song-request" maxlength="300" name="song_request" placeholder="Kappale ja esittäjä" type="text"/></label>
