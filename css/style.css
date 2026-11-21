@@ -1309,7 +1309,8 @@ footer button {
 }
 
 @media (max-width: 360px) {
-  #site > header nav { gap: 12px; }
+  #site > header nav { gap: 4px; }
+  #site > header nav a { letter-spacing: .08em; }
   .hero-caption h1 { font-size: 43px; }
   #story {
     min-height: 810px;

@@ -5,7 +5,6 @@
     'Avaa hääkutsu': 'Öppna bröllopsinbjudan',
     'Avaa kutsu': 'Öppna inbjudan',
     'Sivuston osiot': 'Webbplatsens avsnitt',
-    'Meistä': 'Om oss',
     'Ohjelma': 'Program',
     'Matka': 'Resa',
     'Kuvat': 'Bilder',
