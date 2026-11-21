@@ -109,7 +109,11 @@
   if (isComingSoon) {
     entry.hidden = true;
     site.hidden = true;
-  } else {
+  } else if (isLocal || CONFIG.COMING_SOON_MODE === false) {
     showSite();
+  } else if (isUnlocked()) {
+    showSite();
+  } else if (location.hash.length > 1) {
+    openEnvelope();
   }
 })();
