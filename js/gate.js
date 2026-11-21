@@ -18,7 +18,8 @@
     hostname === '[::1]' ||
     hostname === '::1';
   const isPreview = new URLSearchParams(location.search).get('preview') === 'true';
-  const isComingSoon = CONFIG.COMING_SOON_MODE && !isLocal && !isPreview;
+  // Julkisessa ympäristössä vain asetuksen eksplisiittinen false avaa hääsivun.
+  const isComingSoon = !isLocal && !isPreview && CONFIG.COMING_SOON_MODE !== false;
   document.documentElement.dataset.comingSoon = String(isComingSoon);
 
   function isUnlocked() {
