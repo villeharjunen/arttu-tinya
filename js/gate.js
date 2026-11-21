@@ -11,6 +11,16 @@
   const UNLOCK_KEY = 'arttu-tinya-unlocked';
   let opening = false;
 
+  const hostname = location.hostname;
+  const isLocal = location.protocol === 'file:' ||
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1' ||
+    hostname === '[::1]' ||
+    hostname === '::1';
+  const isPreview = new URLSearchParams(location.search).get('preview') === 'true';
+  const isComingSoon = CONFIG.COMING_SOON_MODE && !isLocal && !isPreview;
+  document.documentElement.dataset.comingSoon = String(isComingSoon);
+
   function isUnlocked() {
     try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; }
   }
@@ -95,5 +105,10 @@
     error.hidden = true;
   });
 
-  if (isUnlocked()) showSite(); else if (location.hash.length > 1) openEnvelope();
+  if (isComingSoon) {
+    entry.hidden = true;
+    site.hidden = true;
+  } else {
+    showSite();
+  }
 })();

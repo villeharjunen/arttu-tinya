@@ -9,8 +9,27 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet"/>
+  <link href="css/coming-soon.css" rel="stylesheet"/>
 </head>
 <body>
+  <main aria-labelledby="coming-soon-title" class="coming-soon-page" hidden="" id="coming-soon">
+    <div aria-label="Valitse kieli" class="language-switch coming-soon-language-switch" role="group">
+      <button aria-label="Vaihda kieleksi suomi" aria-pressed="true" data-language="fi" type="button">FI</button>
+      <button aria-label="Byt språk till svenska" aria-pressed="false" data-language="sv" type="button">SV</button>
+    </div>
+    <section aria-label="Sivuston avautumislaskuri" class="countdown-section center" data-countdown-label="true">
+      <p class="eyebrow" data-fi="Arttu &amp; Tinya · Umbria" data-sv="Arttu &amp; Tinya · Umbrien">Arttu &amp; Tinya · Umbria</p>
+      <h1 id="coming-soon-title" data-fi="Hääsivusto avautuu pian" data-sv="Bröllopswebbplatsen öppnar snart">Hääsivusto avautuu pian</h1>
+      <p class="coming-soon-date"><time datetime="2026-11-28" data-fi="28.11.2026" data-sv="28.11.2026">28.11.2026</time></p>
+      <div aria-label="Aikaa sivuston avautumiseen" class="countdown coming-soon-countdown" role="timer">
+        <div><strong id="coming-soon-days">—</strong><span data-fi="päivää" data-sv="dagar">päivää</span></div>
+        <div><strong id="coming-soon-hours">—</strong><span data-fi="tuntia" data-sv="timmar">tuntia</span></div>
+        <div><strong id="coming-soon-minutes">—</strong><span data-fi="minuuttia" data-sv="minuter">minuuttia</span></div>
+        <div><strong id="coming-soon-seconds">—</strong><span data-fi="sekuntia" data-sv="sekunder">sekuntia</span></div>
+      </div>
+      <p class="countdown-note" data-fi="Sivusto avautuu 28. marraskuuta 2026." data-sv="Webbplatsen öppnar den 28 november 2026.">Sivusto avautuu 28. marraskuuta 2026.</p>
+    </section>
+  </main>
   <main class="entry" id="entry">
     <div class="entry-inner">
       <p class="eyebrow">Umbria · 20–23.5.2027</p>
@@ -286,6 +305,7 @@
   <script src="js/config.js"></script>
   <script src="js/language.js"></script>
   <script src="js/gate.js"></script>
+  <script src="js/coming-soon.js"></script>
   <script src="js/countdown.js"></script>
   <script src="js/schedule.js"></script>
   <script src="js/rsvp.js"></script>
