@@ -5,11 +5,18 @@ const BASE_HEADERS = ['Aika', 'Nimi', 'Osallistuminen', 'Avec', 'Viesti', 'Biisi
 const BASE_FIELDS = ['name', 'attendance', 'guest', 'message', 'song_request', 'email'];
 const EVENT_FIELDS = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
 const EVENT_HEADERS = ['Torstain yhteislenkki', 'Torstain tervetuliaispizzaparty', 'Perjantain hääpäivä', 'Lauantain pool party'];
+const QUIZ_HEADERS = ['Aloitettu', 'Tallennettu', 'Nimimerkki', 'Vastaus 1', 'Vastaus 2', 'Vastaus 3', 'Pisteet'];
+const QUIZ_OPTIONS = [
+  ['Umbria', 'Toscana', 'Lazio'],
+  ['Antico Borgo Carceri', 'Ostello Bello Assisi Bevagna', 'Palazzo Brunamonti Boutique Hotel'],
+  ['Vuokra-auto', 'Polkupyörä', 'Linja-auto']
+];
 
 function doPost(e) {
   const p = (e && e.parameter) || {};
   // Roskapostiansa: oikea vieras ei näe eikä täytä tätä kenttää.
   if (p.website) return json({ ok: true });
+  if (p.type === 'quiz') return saveQuiz(p);
   if (!String(p.name || '').trim()) return json({ ok: false, error: 'name' });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(p.email || '').trim())) return json({ ok: false, error: 'email' });
   const attending = String(p.attendance || '') === 'Osallistun mielelläni';
@@ -43,6 +50,27 @@ function doPost(e) {
       row[headers.indexOf(header)] = attending ? eventChoices[index] : false;
     });
     sheet.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+  return json({ ok: true });
+}
+
+function saveQuiz(p) {
+  const nickname = String(p.nickname || '').trim();
+  const answers = [p.question1Answer, p.question2Answer, p.question3Answer].map(value => String(value || '').trim());
+  if (!nickname || !p.startedAt || isNaN(Date.parse(p.startedAt)) ||
+      answers.some((answer, index) => QUIZ_OPTIONS[index].indexOf(answer) === -1)) {
+    return json({ ok: false, error: 'quiz' });
+  }
+  const score = answers.filter((answer, index) => answer === QUIZ_OPTIONS[index][0]).length;
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName('Tietovisa') || ss.insertSheet('Tietovisa');
+    if (sheet.getLastRow() === 0) sheet.appendRow(QUIZ_HEADERS);
+    sheet.appendRow([new Date(p.startedAt), new Date(), clean(nickname)].concat(answers.map(clean), [score]));
   } finally {
     lock.releaseLock();
   }

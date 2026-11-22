@@ -3,6 +3,8 @@ const CONFIG = {
   // Väliaikainen julkinen laskeutumissivu ja sen avautumisaika.
   COMING_SOON_MODE: true,
   SITE_LAUNCH_DATE: '2026-11-28T00:00:00+02:00',
+  // Kun asetus on false, kutsu avautuu ilman tietovisaa.
+  QUIZ_MODE: true,
   // Kutsun salasana. Selainpuolen portti: näkyy lähdekoodissa eikä suojaa sivun sisältöä.
   password: 'umbria',
   // Alustava vihkimisaika: 21.5.2027 klo 14.00 Italian kesäaikaa (UTC+02:00).

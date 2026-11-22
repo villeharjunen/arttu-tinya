@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="css/style.css?v=nav-20261121" rel="stylesheet"/>
   <link href="css/coming-soon.css" rel="stylesheet"/>
+  <link href="css/quiz.css" rel="stylesheet"/>
 </head>
 <body>
   <main aria-labelledby="coming-soon-title" class="coming-soon-page" hidden="" id="coming-soon">
@@ -45,6 +46,44 @@
         </span>
         <span class="open-label">Avaa kutsu</span>
       </button>
+    </div>
+  </main>
+  <main class="quiz" hidden="" id="quiz" aria-labelledby="quiz-title">
+    <div class="quiz-card">
+      <p class="eyebrow">Arttu &amp; Tinya · Umbria</p>
+      <h1 id="quiz-title" tabindex="-1">Pieni häävisa</h1>
+      <p>Ennen kuin avaat kutsun, vastaa kolmeen kysymykseen. Kaikilla vastauksilla pääsee eteenpäin!</p>
+      <form id="quiz-form" novalidate="">
+        <div class="quiz-step" data-quiz-step="0">
+          <label for="quiz-nickname">Nimimerkki</label>
+          <input autocomplete="nickname" id="quiz-nickname" maxlength="100" name="nickname" required="" type="text"/>
+          <p>Valitse ensin nimimerkki visaa varten.</p>
+          <button class="primary" type="submit">Aloita visa</button>
+        </div>
+        <fieldset class="quiz-step" data-quiz-step="1" hidden="">
+          <legend><span class="quiz-progress">1 / 3</span> Missä Italian maakunnassa hääpaikka sijaitsee?</legend>
+          <label class="quiz-choice"><input name="question1Answer" required="" type="radio" value="Umbria"/><span>Umbria</span></label>
+          <label class="quiz-choice"><input name="question1Answer" type="radio" value="Toscana"/><span>Toscana</span></label>
+          <label class="quiz-choice"><input name="question1Answer" type="radio" value="Lazio"/><span>Lazio</span></label>
+          <button class="primary" type="submit">Seuraava kysymys</button>
+        </fieldset>
+        <fieldset class="quiz-step" data-quiz-step="2" hidden="">
+          <legend><span class="quiz-progress">2 / 3</span> Mikä on hääviikonlopun pääpaikka?</legend>
+          <label class="quiz-choice"><input name="question2Answer" required="" type="radio" value="Antico Borgo Carceri"/><span>Antico Borgo Carceri</span></label>
+          <label class="quiz-choice"><input name="question2Answer" type="radio" value="Ostello Bello Assisi Bevagna"/><span>Ostello Bello Assisi Bevagna</span></label>
+          <label class="quiz-choice"><input name="question2Answer" type="radio" value="Palazzo Brunamonti Boutique Hotel"/><span>Palazzo Brunamonti Boutique Hotel</span></label>
+          <button class="primary" type="submit">Seuraava kysymys</button>
+        </fieldset>
+        <fieldset class="quiz-step" data-quiz-step="3" hidden="">
+          <legend><span class="quiz-progress">3 / 3</span> Mikä kulkuväline suositellaan seurueittain hääpaikalle?</legend>
+          <label class="quiz-choice"><input name="question3Answer" required="" type="radio" value="Vuokra-auto"/><span>Vuokra-auto</span></label>
+          <label class="quiz-choice"><input name="question3Answer" type="radio" value="Polkupyörä"/><span>Polkupyörä</span></label>
+          <label class="quiz-choice"><input name="question3Answer" type="radio" value="Linja-auto"/><span>Linja-auto</span></label>
+          <button class="primary" type="submit">Lähetä vastaukset</button>
+        </fieldset>
+        <label aria-hidden="true" class="hp">Jätä tämä tyhjäksi<input autocomplete="off" name="website" tabindex="-1"/></label>
+        <p class="quiz-error" hidden="" id="quiz-error" role="alert"></p>
+      </form>
     </div>
   </main>
   <div hidden="" id="site">
@@ -302,9 +341,10 @@
       <button class="primary" type="submit">Avaa kutsu</button><button id="password-cancel" type="button">Takaisin</button>
     </form>
   </dialog>
-  <script src="js/config.js?v=coming-soon"></script>
-  <script src="js/language.js"></script>
-  <script src="js/gate.js?v=coming-soon"></script>
+  <script src="js/config.js?v=quiz-20261122"></script>
+  <script src="js/language.js?v=quiz-20261122"></script>
+  <script src="js/quiz.js?v=quiz-20261122"></script>
+  <script src="js/gate.js?v=quiz-20261122"></script>
   <script src="js/coming-soon.js"></script>
   <script src="js/countdown.js"></script>
   <script src="js/schedule.js"></script>

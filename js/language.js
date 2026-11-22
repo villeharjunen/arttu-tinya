@@ -142,6 +142,21 @@
     'Kirjoita kutsun salasana avataksesi sivuston.': 'Ange inbjudans lösenord för att öppna webbplatsen.',
     'Salasana': 'Lösenord',
     'Salasana ei ollut oikein. Kokeile uudelleen.': 'Fel lösenord. Försök igen.',
+    'Pieni häävisa': 'En liten bröllopsquiz',
+    'Ennen kuin avaat kutsun, vastaa kolmeen kysymykseen. Kaikilla vastauksilla pääsee eteenpäin!': 'Svara på tre frågor innan du öppnar inbjudan. Alla svar tar dig vidare!',
+    'Nimimerkki': 'Smeknamn',
+    'Valitse ensin nimimerkki visaa varten.': 'Välj först ett smeknamn för quizet.',
+    'Kirjoita nimimerkki.': 'Ange ett smeknamn.',
+    'Aloita visa': 'Börja quizet',
+    'Missä Italian maakunnassa hääpaikka sijaitsee?': 'I vilken italiensk region ligger bröllopsplatsen?',
+    'Mikä on hääviikonlopun pääpaikka?': 'Var är bröllopshelgens huvudsakliga plats?',
+    'Mikä kulkuväline suositellaan seurueittain hääpaikalle?': 'Vilket färdmedel rekommenderas för sällskap till bröllopsplatsen?',
+    'Vuokra-auto': 'Hyrbil',
+    'Polkupyörä': 'Cykel',
+    'Linja-auto': 'Buss',
+    'Seuraava kysymys': 'Nästa fråga',
+    'Lähetä vastaukset': 'Skicka svaren',
+    'Vastausten lähetys epäonnistui. Tarkista nettiyhteys ja yritä uudelleen.': 'Det gick inte att skicka svaren. Kontrollera internetanslutningen och försök igen.',
     'Takaisin': 'Tillbaka'
   };
   const textSources = new WeakMap();

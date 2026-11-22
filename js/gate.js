@@ -10,6 +10,7 @@
   const openButton = document.getElementById('open');
   const UNLOCK_KEY = 'arttu-tinya-unlocked';
   let opening = false;
+  let quizActive = false;
 
   const hostname = location.hostname;
   const isLocal = location.protocol === 'file:' ||
@@ -43,7 +44,7 @@
   }
 
   function openEnvelope() {
-    if (isUnlocked()) {
+    if (!CONFIG.QUIZ_MODE && isUnlocked()) {
       showSite();
       return;
     }
@@ -83,8 +84,8 @@
   };
 
   window.addEventListener('hashchange', () => {
-    if (site.hidden && location.hash.length > 1) {
-      if (isUnlocked()) showSite(); else if (!dialog.open) openEnvelope();
+    if (site.hidden && !quizActive && location.hash.length > 1) {
+      if (!CONFIG.QUIZ_MODE && isUnlocked()) showSite(); else if (!dialog.open) openEnvelope();
     }
   });
 
@@ -93,7 +94,16 @@
     if (input.value === CONFIG.password) {
       dialog.close();
       form.reset();
-      showSite();
+      if (CONFIG.QUIZ_MODE) {
+        quizActive = true;
+        entry.hidden = true;
+        QUIZ.start(() => {
+          quizActive = false;
+          showSite();
+        });
+      } else {
+        showSite();
+      }
     } else {
       error.hidden = false;
       input.select();
@@ -109,6 +119,8 @@
   if (isComingSoon) {
     entry.hidden = true;
     site.hidden = true;
+  } else if (CONFIG.QUIZ_MODE) {
+    if (location.hash.length > 1) openEnvelope();
   } else if (isLocal || CONFIG.COMING_SOON_MODE === false) {
     showSite();
   } else if (isUnlocked()) {
