@@ -19,6 +19,8 @@
 }
 .quiz p { line-height: 1.65; }
 .quiz-step { min-width: 0; margin: 0; padding: 0; border: 0; }
+.quiz .hp,
+.quiz .hp input { display: none !important; }
 .quiz-step > label:not(.quiz-choice) { display: block; margin-bottom: 8px; }
 .quiz-step input[type="text"] {
   width: 100%;
