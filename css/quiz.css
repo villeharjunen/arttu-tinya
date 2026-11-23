@@ -34,7 +34,6 @@
   font-size: 18px;
   line-height: 1.5;
 }
-.quiz-progress { display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; }
 .quiz-choice {
   display: flex;
   align-items: center;
