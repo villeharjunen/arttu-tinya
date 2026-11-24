@@ -11,6 +11,9 @@
     document.querySelectorAll('[data-fi-aria][data-sv-aria]').forEach(element => {
       element.setAttribute('aria-label', selected === 'sv' ? element.dataset.svAria : element.dataset.fiAria);
     });
+    document.querySelectorAll('[data-fi-alt][data-sv-alt]').forEach(element => {
+      element.setAttribute('alt', selected === 'sv' ? element.dataset.svAlt : element.dataset.fiAlt);
+    });
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === selected)));
     try { localStorage.setItem('arttu-tinya-language', selected); } catch (error) {}
     const url = new URL(location.href);
