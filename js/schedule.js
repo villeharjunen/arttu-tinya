@@ -9,21 +9,26 @@
   }));
   const raceCard = document.querySelector('.race-day');
   const raceFront = raceCard.querySelector('.flip-front');
+  const raceFrontToggle = raceCard.querySelector('.race-front-toggle');
   const raceBack = raceCard.querySelector('.flip-back');
   const raceReturn = raceCard.querySelector('.race-return');
   function setRaceFlipped(flipped) {
     raceCard.classList.toggle('is-flipped', flipped);
-    raceFront.setAttribute('aria-expanded', String(flipped));
+    raceFrontToggle.setAttribute('aria-expanded', String(flipped));
     raceFront.setAttribute('aria-hidden', String(flipped));
     raceFront.inert = flipped;
     raceBack.setAttribute('aria-hidden', String(!flipped));
     raceBack.inert = !flipped;
-    (flipped ? raceReturn : raceFront).focus({ preventScroll: true });
+    (flipped ? raceReturn : raceFrontToggle).focus({ preventScroll: true });
   }
-  raceFront.addEventListener('click', () => setRaceFlipped(true));
+  raceFront.addEventListener('click', event => {
+    if (event.target.closest('a, button')) return;
+    setRaceFlipped(true);
+  });
   raceBack.addEventListener('click', event => {
     if (event.target.closest('a, button')) return;
     setRaceFlipped(false);
   });
+  raceFrontToggle.addEventListener('click', () => setRaceFlipped(true));
   raceReturn.addEventListener('click', () => setRaceFlipped(false));
 })();

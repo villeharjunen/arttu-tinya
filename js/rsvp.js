@@ -11,19 +11,18 @@
   const eventNames = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
   const racePreference = document.getElementById('race-preference');
   const transportFields = document.getElementById('transport-fields');
-  const transportNeed = document.getElementById('transport-need');
+  const transportDays = Array.from(document.querySelectorAll('#transport-days input[type=checkbox]'));
   const transportDetails = document.getElementById('transport-details');
   const transportInputs = Array.from(transportDetails.querySelectorAll('input'));
 
   function updateTransportChoices() {
     const attending = attendance.value === 'Osallistun mielelläni';
     transportFields.hidden = !attending;
-    transportNeed.disabled = !attending;
     if (!attending) {
-      transportNeed.value = '';
+      transportDays.forEach(checkbox => { checkbox.checked = false; });
       transportInputs.forEach(input => { input.value = ''; });
     }
-    const needsTransport = attending && transportNeed.value === 'Kyllä';
+    const needsTransport = attending && transportDays.some(checkbox => checkbox.checked);
     transportDetails.hidden = !needsTransport;
     transportInputs.forEach(input => { input.disabled = !needsTransport; });
   }
@@ -42,7 +41,7 @@
   }
 
   attendance.addEventListener('change', updateEventChoices);
-  transportNeed.addEventListener('change', updateTransportChoices);
+  transportDays.forEach(checkbox => checkbox.addEventListener('change', updateTransportChoices));
   eventCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updateEventChoices));
   window.addEventListener('site-language-change', updateEventChoices);
   updateEventChoices();
@@ -54,10 +53,13 @@
     submit.textContent = SITE_LANGUAGE.t('Lähetetään…');
     try {
       const payload = new URLSearchParams(new FormData(form));
-      payload.set('borgoPreference', attendance.value === 'Osallistun mielelläni' ? racePreference.value : '');
+      payload.set('borgoPreference', attendance.value === 'Osallistun mielelläni' && eventCheckboxes[0].checked ? racePreference.value : '');
       payload.set('borgoPayloadVersion', '2');
       eventNames.forEach((name, index) => {
         payload.set(name, eventCheckboxes[index].checked ? 'TRUE' : 'FALSE');
+      });
+      transportDays.forEach(checkbox => {
+        payload.set(checkbox.name, attendance.value === 'Osallistun mielelläni' && checkbox.checked ? 'TRUE' : 'FALSE');
       });
       const res = await fetch(CONFIG.rsvpEndpoint, { method: 'POST', body: payload });
       const data = await res.json();

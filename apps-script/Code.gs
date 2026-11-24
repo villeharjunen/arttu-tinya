@@ -1,13 +1,22 @@
 // RSVP-vastaanotin: liitä tämä Google Sheetin Apps Scriptiin (Laajennukset → Apps Script)
 // ja julkaise verkkosovelluksena: Suorita käyttäjänä "Minä", Käyttöoikeus "Kuka tahansa".
 const SHEET_NAME = 'Vastaukset';
-const BASE_HEADERS = ['Aika', 'Nimi', 'Osallistuminen', 'Avec', 'Viesti', 'Biisitoive', 'Sähköposti'];
-const BASE_FIELDS = ['name', 'attendance', 'guest', 'message', 'song_request', 'email'];
+const BASE_HEADERS = ['Aika', 'Nimi', 'Osallistuminen', 'Viesti', 'Biisitoive', 'Sähköposti'];
+const BASE_FIELDS = ['name', 'attendance', 'message', 'song_request', 'email'];
+const BASE_FIELD_HEADERS = ['Nimi', 'Osallistuminen', 'Viesti', 'Biisitoive', 'Sähköposti'];
+// Otsikkomappaukset: BASE_FIELDS ↔ BASE_FIELD_HEADERS, EVENT_FIELDS ↔ EVENT_HEADERS,
+// TRANSPORT_DAY_FIELDS ↔ TRANSPORT_DAY_HEADERS ja TRANSPORT_DETAIL_FIELDS ↔ TRANSPORT_DETAIL_HEADERS.
+// Vanhan taulukon Avec-sarake säilyy historiatietoja varten, mutta uusia avec-tietoja ei tallenneta.
+const LEGACY_BASE_HEADERS = ['Aika', 'Nimi', 'Osallistuminen', 'Avec', 'Viesti', 'Biisitoive', 'Sähköposti'];
 const EVENT_FIELDS = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
 const EVENT_HEADERS = ['Torstain yhteislenkki', 'Torstain tervetuliaispizzaparty', 'Perjantain hääpäivä', 'Lauantain pool party'];
 const BORGO_PREFERENCE_HEADER = 'Borgo Backyardin osallistumistapa';
-const TRANSPORT_HEADERS = ['Kuljetustarve', 'Kuljetuksen majoituspaikka', 'Kuljetusta tarvitsevien määrä'];
-const TRANSPORT_FIELDS = ['transportNeed', 'transportDestination', 'transportPeople'];
+// Kuljetuspäivät tallentuvat omiin sarakkeisiinsa; majoitus ja henkilömäärä säilyvät erillisinä.
+const TRANSPORT_DAY_FIELDS = ['transportThursday', 'transportFriday', 'transportSaturday'];
+const TRANSPORT_DAY_HEADERS = ['Torstain kuljetus', 'Perjantain kuljetus', 'Lauantain kuljetus'];
+const TRANSPORT_DETAIL_FIELDS = ['transportDestination', 'transportPeople'];
+const TRANSPORT_DETAIL_HEADERS = ['Kuljetuksen majoituspaikka', 'Kuljetusta tarvitsevien määrä'];
+const LEGACY_TRANSPORT_HEADER = 'Kuljetustarve';
 const QUIZ_HEADERS = ['Aloitettu', 'Tallennettu', 'Nimimerkki', 'Vastaus 1', 'Vastaus 2', 'Vastaus 3', 'Pisteet'];
 const QUIZ_OPTIONS = [
   ['Umbria', 'Toscana', 'Lazio'],
@@ -28,7 +37,7 @@ function doPost(e) {
   const message = String(p.message || '');
   // Vanhan lomakkeen lisäämä viimeinen rivi erotetaan vain vanhoista lähetyksistä.
   let legacyPreference = attending && p.borgoPayloadVersion !== '2'
-    ? message.match(/(?:^|\n)Borgo Backyard: (Juoksen|Kävelen|Kannustusjoukoissa|En osallistu)$/)
+    ? message.match(/(?:^|\n)Borgo Backyard: (Juoksen tai kävelen|Juoksen|Kävelen|Kannustusjoukoissa|En osallistu)$/)
     : null;
   if (legacyPreference && Object.prototype.hasOwnProperty.call(p, 'borgoPreference') &&
       p.borgoPreference !== legacyPreference[1]) legacyPreference = null;
@@ -41,13 +50,15 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_HEADERS));
+      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, TRANSPORT_DETAIL_HEADERS));
     } else {
-      if (!sheet.getRange(1, BASE_HEADERS.length).getValue()) {
-        sheet.getRange(1, BASE_HEADERS.length).setValue(BASE_HEADERS[BASE_HEADERS.length - 1]);
+      const existingHeaders = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), LEGACY_BASE_HEADERS.length)).getValues()[0];
+      if (existingHeaders.indexOf('Avec') !== -1 && existingHeaders.indexOf('Sähköposti') === -1 &&
+          !sheet.getRange(1, LEGACY_BASE_HEADERS.length).getValue()) {
+        sheet.getRange(1, LEGACY_BASE_HEADERS.length).setValue('Sähköposti');
+        existingHeaders[LEGACY_BASE_HEADERS.length - 1] = 'Sähköposti';
       }
-      const existingHeaders = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), BASE_HEADERS.length)).getValues()[0];
-      EVENT_HEADERS.concat([BORGO_PREFERENCE_HEADER], TRANSPORT_HEADERS).forEach(header => {
+      BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, TRANSPORT_DETAIL_HEADERS).forEach(header => {
         if (existingHeaders.indexOf(header) !== -1) return;
         const column = Math.max(sheet.getLastColumn(), BASE_HEADERS.length) + 1;
         sheet.getRange(1, column).setValue(header);
@@ -56,16 +67,30 @@ function doPost(e) {
     }
     const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     const row = Array(headers.length).fill('');
-    row[0] = new Date();
-    BASE_FIELDS.forEach((field, index) => { row[index + 1] = clean(field === 'message' ? messageValue : p[field]); });
+    const timeColumn = headers.indexOf('Aika');
+    if (timeColumn !== -1) row[timeColumn] = new Date();
+    BASE_FIELDS.forEach((field, index) => {
+      const column = headers.indexOf(BASE_FIELD_HEADERS[index]);
+      if (column !== -1) row[column] = clean(field === 'message' ? messageValue : p[field]);
+    });
     EVENT_HEADERS.forEach((header, index) => {
       row[headers.indexOf(header)] = attending ? eventChoices[index] : false;
     });
     row[headers.indexOf(BORGO_PREFERENCE_HEADER)] = attending ? clean(preferenceValue) : '';
-    TRANSPORT_HEADERS.forEach((header, index) => {
-      const include = attending && (index === 0 || p.transportNeed === 'Kyllä');
-      row[headers.indexOf(header)] = include ? clean(p[TRANSPORT_FIELDS[index]]) : '';
+    const transportDays = TRANSPORT_DAY_FIELDS.map(field => isTrue(p[field]));
+    const hasTransport = attending && (transportDays.some(Boolean) || p.transportNeed === 'Kyllä');
+    TRANSPORT_DAY_HEADERS.forEach((header, index) => {
+      row[headers.indexOf(header)] = attending && transportDays[index];
     });
+    TRANSPORT_DETAIL_HEADERS.forEach((header, index) => {
+      row[headers.indexOf(header)] = hasTransport ? clean(p[TRANSPORT_DETAIL_FIELDS[index]]) : '';
+    });
+    const legacyTransportColumn = headers.indexOf(LEGACY_TRANSPORT_HEADER);
+    if (legacyTransportColumn !== -1) {
+      row[legacyTransportColumn] = attending
+        ? clean(p.transportNeed || (hasTransport ? 'Kyllä' : ''))
+        : '';
+    }
     sheet.appendRow(row);
   } finally {
     lock.releaseLock();
