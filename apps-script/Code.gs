@@ -23,6 +23,15 @@ function doPost(e) {
   const attending = String(p.attendance || '') === 'Osallistun mielelläni';
   const eventChoices = EVENT_FIELDS.map(field => isTrue(p[field]));
   if (attending && !eventChoices.some(Boolean)) return json({ ok: false, error: 'events' });
+  const message = String(p.message || '');
+  // Vanhan lomakkeen lisäämä viimeinen rivi erotetaan vain vanhoista lähetyksistä.
+  let legacyPreference = attending && p.borgoPayloadVersion !== '2'
+    ? message.match(/(?:^|\n)Borgo Backyard: (Juoksen|Kävelen|Kannustusjoukoissa|En osallistu)$/)
+    : null;
+  if (legacyPreference && Object.prototype.hasOwnProperty.call(p, 'borgoPreference') &&
+      p.borgoPreference !== legacyPreference[1]) legacyPreference = null;
+  const messageValue = legacyPreference ? message.slice(0, legacyPreference.index) : message;
+  const preferenceValue = legacyPreference ? legacyPreference[1] : p.borgoPreference;
 
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -46,11 +55,11 @@ function doPost(e) {
     const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     const row = Array(headers.length).fill('');
     row[0] = new Date();
-    BASE_FIELDS.forEach((field, index) => { row[index + 1] = clean(p[field]); });
+    BASE_FIELDS.forEach((field, index) => { row[index + 1] = clean(field === 'message' ? messageValue : p[field]); });
     EVENT_HEADERS.forEach((header, index) => {
       row[headers.indexOf(header)] = attending ? eventChoices[index] : false;
     });
-    row[headers.indexOf(BORGO_PREFERENCE_HEADER)] = attending ? clean(p.borgoPreference) : '';
+    row[headers.indexOf(BORGO_PREFERENCE_HEADER)] = attending ? clean(preferenceValue) : '';
     sheet.appendRow(row);
   } finally {
     lock.releaseLock();
