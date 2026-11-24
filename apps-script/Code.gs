@@ -16,7 +16,7 @@ const TRANSPORT_DAY_FIELDS = ['transportThursday', 'transportFriday', 'transport
 const TRANSPORT_DAY_HEADERS = ['Torstain kuljetus', 'Perjantain kuljetus', 'Lauantain kuljetus'];
 const TRANSPORT_DETAIL_FIELDS = ['transportDestination', 'transportPeople'];
 const TRANSPORT_DETAIL_HEADERS = ['Kuljetuksen majoituspaikka', 'Kuljetusta tarvitsevien määrä'];
-const LEGACY_TRANSPORT_HEADER = 'Kuljetustarve';
+const LEGACY_TRANSPORT_HEADER = 'Kuljetustarve'; // Yhteensopivuus vanhan lomakkeen kanssa.
 const QUIZ_HEADERS = ['Aloitettu', 'Tallennettu', 'Nimimerkki', 'Vastaus 1', 'Vastaus 2', 'Vastaus 3', 'Pisteet'];
 const QUIZ_OPTIONS = [
   ['Umbria', 'Toscana', 'Lazio'],
@@ -50,7 +50,7 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, TRANSPORT_DETAIL_HEADERS));
+      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, [LEGACY_TRANSPORT_HEADER], TRANSPORT_DETAIL_HEADERS));
     } else {
       const existingHeaders = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), LEGACY_BASE_HEADERS.length)).getValues()[0];
       if (existingHeaders.indexOf('Avec') !== -1 && existingHeaders.indexOf('Sähköposti') === -1 &&
@@ -58,7 +58,7 @@ function doPost(e) {
         sheet.getRange(1, LEGACY_BASE_HEADERS.length).setValue('Sähköposti');
         existingHeaders[LEGACY_BASE_HEADERS.length - 1] = 'Sähköposti';
       }
-      BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, TRANSPORT_DETAIL_HEADERS).forEach(header => {
+      BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER], TRANSPORT_DAY_HEADERS, [LEGACY_TRANSPORT_HEADER], TRANSPORT_DETAIL_HEADERS).forEach(header => {
         if (existingHeaders.indexOf(header) !== -1) return;
         const column = Math.max(sheet.getLastColumn(), BASE_HEADERS.length) + 1;
         sheet.getRange(1, column).setValue(header);

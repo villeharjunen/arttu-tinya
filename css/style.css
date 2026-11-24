@@ -634,7 +634,7 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 56% 48%;
+  object-position: 56% 20%;
 }
 .aura-story-copy {
   position: relative;

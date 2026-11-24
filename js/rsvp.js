@@ -53,8 +53,11 @@
     submit.textContent = SITE_LANGUAGE.t('Lähetetään…');
     try {
       const payload = new URLSearchParams(new FormData(form));
-      payload.set('borgoPreference', attendance.value === 'Osallistun mielelläni' && eventCheckboxes[0].checked ? racePreference.value : '');
+      const attending = attendance.value === 'Osallistun mielelläni';
+      const hasTransport = attending && transportDays.some(checkbox => checkbox.checked);
+      payload.set('borgoPreference', attending && eventCheckboxes[0].checked ? racePreference.value : '');
       payload.set('borgoPayloadVersion', '2');
+      payload.set('transportNeed', attending ? (hasTransport ? 'Kyllä' : 'Ei') : '');
       eventNames.forEach((name, index) => {
         payload.set(name, eventCheckboxes[index].checked ? 'TRUE' : 'FALSE');
       });
