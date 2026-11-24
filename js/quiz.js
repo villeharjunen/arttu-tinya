@@ -2,6 +2,10 @@
 const QUIZ = (() => {
   'use strict';
   const page = document.getElementById('quiz');
+  if (!CONFIG.QUIZ_MODE) {
+    if (page) page.remove();
+    return { start() {} };
+  }
   const form = document.getElementById('quiz-form');
   const nickname = document.getElementById('quiz-nickname');
   const error = document.getElementById('quiz-error');
