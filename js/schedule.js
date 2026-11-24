@@ -6,7 +6,20 @@
     button.setAttribute('aria-pressed', String(flipped));
     button.querySelector('.flip-front').setAttribute('aria-hidden', String(flipped));
     button.querySelector('.flip-back').setAttribute('aria-hidden', String(!flipped));
-    const link = button.parentElement.querySelector('.race-card-link');
-    if (link) link.hidden = !flipped;
   }));
+  const raceCard = document.querySelector('.race-day');
+  const raceFront = raceCard.querySelector('.flip-front');
+  const raceBack = raceCard.querySelector('.flip-back');
+  const raceReturn = raceCard.querySelector('.race-return');
+  function setRaceFlipped(flipped) {
+    raceCard.classList.toggle('is-flipped', flipped);
+    raceFront.setAttribute('aria-expanded', String(flipped));
+    raceFront.setAttribute('aria-hidden', String(flipped));
+    raceFront.inert = flipped;
+    raceBack.setAttribute('aria-hidden', String(!flipped));
+    raceBack.inert = !flipped;
+    (flipped ? raceReturn : raceFront).focus({ preventScroll: true });
+  }
+  raceFront.addEventListener('click', () => setRaceFlipped(true));
+  raceReturn.addEventListener('click', () => setRaceFlipped(false));
 })();

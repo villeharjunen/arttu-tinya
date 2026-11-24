@@ -41,6 +41,17 @@
     'Kävelen': 'Jag promenerar',
     'Kannustusjoukoissa': 'I hejarklacken',
     'En osallistu': 'Jag deltar inte',
+    'Ciao, Bella Italia!: näytä aikataulu': 'Ciao, Bella Italia!: visa programmet',
+    'The Big Day!: näytä tai piilota aikataulu': 'The Big Day!: visa eller dölj programmet',
+    'Dolce Vita by the Pool: näytä tai piilota aikataulu': 'La Dolce Vita vid poolen: visa eller dölj programmet',
+    'Arrivederci: näytä tai piilota aikataulu': 'På återseende: visa eller dölj programmet',
+    'Torstai 20.5. · aikataulu': 'Torsdag 20.5. · program',
+    'Perjantai 21.5. · aikataulu': 'Fredag 21.5. · program',
+    'Lauantai 22.5. · aikataulu': 'Lördag 22.5. · program',
+    'Sunnuntai 23.5. · aikataulu': 'Söndag 23.5. · program',
+    'Kyllä': 'Ja',
+    'Ei': 'Nej',
+    'En tiedä vielä': 'Jag vet inte ännu',
     'Yksi juhla. Kokonainen viikonloppu.': 'Ett firande. En hel helg.',
     'Sanomme tahdon ja koska yksi ilta yhdessä tuntui liian lyhyeltä, päätimme tehdä juhlista kokonaisen viikonlopun.': 'Vi säger ja till varandra, och eftersom en enda kväll tillsammans kändes alldeles för kort bestämde vi oss för att göra firandet till en hel helg.',
     'Tervetuloa meidän pienelle italialaiselle hääviikonlopullemme.': 'Välkommen till vår lilla italienska bröllopshelg.',
@@ -216,6 +227,10 @@
       const phrase = source.slice(leading.length, source.length - trailing.length);
       node.nodeValue = leading + (language === 'sv' ? (sv[phrase] || phrase) : phrase) + trailing;
     }
+
+    document.querySelectorAll('#site [data-fi][data-sv]').forEach(element => {
+      element.textContent = language === 'sv' ? element.dataset.sv : element.dataset.fi;
+    });
 
     document.querySelectorAll('body *').forEach(element => {
       let sources = attributeSources.get(element);

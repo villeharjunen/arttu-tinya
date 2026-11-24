@@ -2,7 +2,7 @@
 const CONFIG = {
   // Väliaikainen julkinen laskeutumissivu ja sen avautumisaika.
   COMING_SOON_MODE: true,
-  SITE_LAUNCH_DATE: '2026-11-28T00:00:00+02:00',
+  SITE_LAUNCH_DATE: '2026-11-25T21:00:00+02:00',
   // Kun asetus on false, kutsu avautuu ilman tietovisaa.
   QUIZ_MODE: true,
   // Kutsun salasana. Selainpuolen portti: näkyy lähdekoodissa eikä suojaa sivun sisältöä.

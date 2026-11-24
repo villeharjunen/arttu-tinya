@@ -19,8 +19,10 @@
     hostname === '[::1]' ||
     hostname === '::1';
   const isPreview = new URLSearchParams(location.search).get('preview') === 'true';
-  // Julkisessa ympäristössä vain asetuksen eksplisiittinen false avaa hääsivun.
-  const isComingSoon = !isLocal && !isPreview && CONFIG.COMING_SOON_MODE !== false;
+  const launchTime = Date.parse(CONFIG.SITE_LAUNCH_DATE);
+  if (!Number.isFinite(launchTime)) console.error('Sivuston avautumisaika on virheellinen.');
+  const isComingSoon = !isLocal && !isPreview && CONFIG.COMING_SOON_MODE !== false &&
+    (!Number.isFinite(launchTime) || Date.now() < launchTime);
   document.documentElement.dataset.comingSoon = String(isComingSoon);
 
   function isUnlocked() {

@@ -10,6 +10,23 @@
   const eventCheckboxes = Array.from(eventGroup.querySelectorAll('input[type=checkbox]'));
   const eventNames = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
   const racePreference = document.getElementById('race-preference');
+  const transportFields = document.getElementById('transport-fields');
+  const transportNeed = document.getElementById('transport-need');
+  const transportDetails = document.getElementById('transport-details');
+  const transportInputs = Array.from(transportDetails.querySelectorAll('input'));
+
+  function updateTransportChoices() {
+    const attending = attendance.value === 'Osallistun mielelläni';
+    transportFields.hidden = !attending;
+    transportNeed.disabled = !attending;
+    if (!attending) {
+      transportNeed.value = '';
+      transportInputs.forEach(input => { input.value = ''; });
+    }
+    const needsTransport = attending && transportNeed.value === 'Kyllä';
+    transportDetails.hidden = !needsTransport;
+    transportInputs.forEach(input => { input.disabled = !needsTransport; });
+  }
 
   function updateEventChoices() {
     const attending = attendance.value === 'Osallistun mielelläni';
@@ -21,9 +38,11 @@
     eventCheckboxes[0].setCustomValidity(
       attending && !selected ? SITE_LANGUAGE.t('Valitse vähintään yksi viikonlopun tapahtuma.') : ''
     );
+    updateTransportChoices();
   }
 
   attendance.addEventListener('change', updateEventChoices);
+  transportNeed.addEventListener('change', updateTransportChoices);
   eventCheckboxes.forEach(checkbox => checkbox.addEventListener('change', updateEventChoices));
   window.addEventListener('site-language-change', updateEventChoices);
   updateEventChoices();

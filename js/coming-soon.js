@@ -6,6 +6,10 @@
 
   page.hidden = false;
   const target = new Date(CONFIG.SITE_LAUNCH_DATE).getTime();
+  if (!Number.isFinite(target)) {
+    console.error('Sivuston avautumisaika on virheellinen.');
+    return;
+  }
   const fields = {
     days: document.getElementById('coming-soon-days'),
     hours: document.getElementById('coming-soon-hours'),
@@ -13,9 +17,23 @@
     seconds: document.getElementById('coming-soon-seconds')
   };
   const switcher = page.querySelector('.coming-soon-language-switch');
+  const date = page.querySelector('.coming-soon-date time');
+  const note = page.querySelector('.countdown-note');
+  let reloading = false;
+
+  function checkLaunch() {
+    if (Date.now() >= target) {
+      if (!reloading) {
+        reloading = true;
+        location.reload();
+      }
+      return;
+    }
+    window.setTimeout(checkLaunch, Math.min(target - Date.now(), 2147483647));
+  }
 
   function updateCountdown() {
-    const remaining = Math.max(0, Math.floor((target - Date.now()) / 1000));
+    const remaining = Math.max(0, Math.ceil((target - Date.now()) / 1000));
     const values = {
       days: Math.floor(remaining / 86400),
       hours: Math.floor(remaining % 86400 / 3600),
@@ -42,6 +60,13 @@
     page.querySelectorAll('[data-fi][data-sv]').forEach(element => {
       element.textContent = element.dataset[selected];
     });
+    const day = new Intl.DateTimeFormat('fi-FI', { timeZone: 'Europe/Helsinki', day: 'numeric', month: 'numeric', year: 'numeric' }).format(target);
+    const time = new Intl.DateTimeFormat('fi-FI', { timeZone: 'Europe/Helsinki', hour: '2-digit', minute: '2-digit', hour12: false }).format(target);
+    date.dateTime = CONFIG.SITE_LAUNCH_DATE;
+    date.textContent = day + (selected === 'sv' ? ' kl. ' : ' klo ') + time;
+    note.textContent = selected === 'sv'
+      ? 'Webbplatsen öppnar ' + date.textContent + ' finsk tid.'
+      : 'Sivusto avautuu ' + date.textContent + ' Suomen aikaa.';
     switcher.querySelectorAll('button').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.language === selected));
     });
@@ -55,4 +80,8 @@
   setLanguage(document.documentElement.lang);
   updateCountdown();
   window.setInterval(updateCountdown, 1000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && Date.now() >= target) checkLaunch();
+  });
+  checkLaunch();
 })();
