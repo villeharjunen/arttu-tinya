@@ -9,13 +9,15 @@
   const eventGroup = document.getElementById('rsvp-events');
   const eventCheckboxes = Array.from(eventGroup.querySelectorAll('input[type=checkbox]'));
   const eventNames = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
+  const racePreference = document.getElementById('race-preference');
 
   function updateEventChoices() {
     const attending = attendance.value === 'Osallistun mielelläni';
     eventGroup.hidden = !attending;
     if (!attending) eventCheckboxes.forEach(checkbox => { checkbox.checked = false; });
+    if (!attending) racePreference.value = '';
     const selected = eventCheckboxes.some(checkbox => checkbox.checked);
-    eventCheckboxes[0].required = attending;
+    eventCheckboxes[0].required = attending && !selected;
     eventCheckboxes[0].setCustomValidity(
       attending && !selected ? SITE_LANGUAGE.t('Valitse vähintään yksi viikonlopun tapahtuma.') : ''
     );
@@ -33,6 +35,10 @@
     submit.textContent = SITE_LANGUAGE.t('Lähetetään…');
     try {
       const payload = new URLSearchParams(new FormData(form));
+      if (attendance.value === 'Osallistun mielelläni' && racePreference.value) {
+        const message = payload.get('message').trim();
+        payload.set('message', [message, 'Borgo Backyard: ' + racePreference.value].filter(Boolean).join('\n'));
+      }
       eventNames.forEach((name, index) => {
         payload.set(name, eventCheckboxes[index].checked ? 'TRUE' : 'FALSE');
       });

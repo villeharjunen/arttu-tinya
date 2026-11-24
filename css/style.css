@@ -654,6 +654,9 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   font: 16px/1.95 var(--sans);
   text-shadow: 0 1px 8px #0003;
 }
+#story .story-subtitle { margin-top: -14px; font-family: var(--display); font-size: 22px; font-style: italic; }
+#story .story-closing { font-weight: 600; }
+#story .story-ps { font-style: italic; font-size: 14px; }
 #story .primary {
   display: inline-flex;
   align-items: center;
@@ -790,6 +793,24 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   font-variant-numeric: tabular-nums;
 }
 .schedule-row span { overflow-wrap: break-word; }
+.race-card-description { display: block; padding: 8px 0; font: 13px/1.5 var(--sans); }
+.race-day .flip-back { padding-bottom: 78px; }
+.race-card-link {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 10px;
+  background: #44382c;
+  color: #fffaf2;
+  font: 600 11px/1.4 var(--sans);
+  letter-spacing: .06em;
+  text-decoration: none;
+}
+.race-card-link:hover, .race-card-link:focus-visible { background: #745c43; }
 
 /* ---------- Matka ja majoitus ---------- */
 
