@@ -35,10 +35,6 @@
     submit.textContent = SITE_LANGUAGE.t('Lähetetään…');
     try {
       const payload = new URLSearchParams(new FormData(form));
-      if (attendance.value === 'Osallistun mielelläni' && racePreference.value) {
-        const message = payload.get('message').trim();
-        payload.set('message', [message, 'Borgo Backyard: ' + racePreference.value].filter(Boolean).join('\n'));
-      }
       eventNames.forEach((name, index) => {
         payload.set(name, eventCheckboxes[index].checked ? 'TRUE' : 'FALSE');
       });

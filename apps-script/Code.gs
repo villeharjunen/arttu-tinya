@@ -5,6 +5,7 @@ const BASE_HEADERS = ['Aika', 'Nimi', 'Osallistuminen', 'Avec', 'Viesti', 'Biisi
 const BASE_FIELDS = ['name', 'attendance', 'guest', 'message', 'song_request', 'email'];
 const EVENT_FIELDS = ['thursdayRun', 'thursdayPizzaParty', 'fridayWedding', 'saturdayPoolParty'];
 const EVENT_HEADERS = ['Torstain yhteislenkki', 'Torstain tervetuliaispizzaparty', 'Perjantain hääpäivä', 'Lauantain pool party'];
+const BORGO_PREFERENCE_HEADER = 'Borgo Backyardin osallistumistapa';
 const QUIZ_HEADERS = ['Aloitettu', 'Tallennettu', 'Nimimerkki', 'Vastaus 1', 'Vastaus 2', 'Vastaus 3', 'Pisteet'];
 const QUIZ_OPTIONS = [
   ['Umbria', 'Toscana', 'Lazio'],
@@ -29,13 +30,13 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS));
+      sheet.appendRow(BASE_HEADERS.concat(EVENT_HEADERS, [BORGO_PREFERENCE_HEADER]));
     } else {
       if (!sheet.getRange(1, BASE_HEADERS.length).getValue()) {
         sheet.getRange(1, BASE_HEADERS.length).setValue(BASE_HEADERS[BASE_HEADERS.length - 1]);
       }
       const existingHeaders = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), BASE_HEADERS.length)).getValues()[0];
-      EVENT_HEADERS.forEach(header => {
+      EVENT_HEADERS.concat([BORGO_PREFERENCE_HEADER]).forEach(header => {
         if (existingHeaders.indexOf(header) !== -1) return;
         const column = Math.max(sheet.getLastColumn(), BASE_HEADERS.length) + 1;
         sheet.getRange(1, column).setValue(header);
@@ -49,6 +50,7 @@ function doPost(e) {
     EVENT_HEADERS.forEach((header, index) => {
       row[headers.indexOf(header)] = attending ? eventChoices[index] : false;
     });
+    row[headers.indexOf(BORGO_PREFERENCE_HEADER)] = attending ? clean(p.borgoPreference) : '';
     sheet.appendRow(row);
   } finally {
     lock.releaseLock();
