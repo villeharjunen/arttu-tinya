@@ -1279,7 +1279,10 @@ footer button {
   #story::after {
     background: linear-gradient(180deg, #1d211cbd 0%, #1d211cde 45%, #1d211cf2 100%);
   }
-  .aura-story-photo img { object-position: 55% 35%; }
+  .aura-story-photo img { object-position: 49% 50%; }
+  #story::after {
+    background: linear-gradient(180deg, #1d211cb3 0%, #1d211c99 35%, #1d211cb3 68%, #1d211cdb 100%);
+  }
   .aura-story-copy {
     width: 100%;
     max-width: 540px;
@@ -1329,8 +1332,7 @@ footer button {
   .travel-row.reverse .travel-copy { order: 2; }
   .travel-row img,
   .travel-row img.villa-detail { height: 285px; }
-  .travel-photo-pair { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .travel-photo-pair img, .travel-photo-pair .travel-placeholder { height: 180px; min-height: 180px; }
+  .travel-photo-pair .travel-placeholder { height: 180px; min-height: 180px; }
   .lodging-cards { grid-template-columns: 1fr; }
   .airport-panel table { font-size: 13px; }
   .travel-copy h3 { font-size: 31px; }
@@ -1363,6 +1365,11 @@ footer button {
 
   footer { padding: 28px 20px; }
   footer p { letter-spacing: .08em; }
+}
+
+@media (max-width: 767px) {
+  .travel-photo-pair { grid-template-columns: 1fr; }
+  .travel-photo-pair img { height: auto; }
 }
 
 @media (max-width: 360px) {

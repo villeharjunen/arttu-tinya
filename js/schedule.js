@@ -21,5 +21,9 @@
     (flipped ? raceReturn : raceFront).focus({ preventScroll: true });
   }
   raceFront.addEventListener('click', () => setRaceFlipped(true));
+  raceBack.addEventListener('click', event => {
+    if (event.target.closest('a, button')) return;
+    setRaceFlipped(false);
+  });
   raceReturn.addEventListener('click', () => setRaceFlipped(false));
 })();
