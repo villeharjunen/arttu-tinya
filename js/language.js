@@ -134,7 +134,7 @@
     'Voinko ilmoittaa erityisruokavaliosta tai allergioista?': 'Kan jag meddela kostbehov eller allergier?',
     'Kyllä. Kerro niistä RSVP-lomakkeen ruokavaliot ja allergiat -kentässä.': 'Ja. Skriv in dem i fältet för kostönskemål och allergier i OSA-formuläret.',
     'Muistaminen': 'Gåvor',
-    'Meille tärkeintä on, että saavut paikalle juhlistamaan kanssamme. Jos haluat muistaa meitä, voit halutessasi tukea häämatkaamme MobilePaylla joko Artulle tai Tinyalle perinteisen lahjan sijaan tai sen lisäksi.': 'Det viktigaste för oss är att du kommer och firar med oss. Om du vill ge oss en gåva får du gärna bidra till vår bröllopsresa via MobilePay till Arttu eller Tinya, i stället för eller som komplement till en traditionell gåva.',
+    'Meille tärkeintä on, että saavut paikalle juhlistamaan kanssamme. Häälahjatoiveemme on kontribuutio häämatkaamme, jota voi tukea MobilePaylla joko Artulle tai Tinyalle. Näin meidän ei tarvitse kuljettaa tavaroita Italiaan.': 'Det viktigaste för oss är att du kommer och firar med oss. Vår önskan är att bröllopsgåvorna blir ett bidrag till vår bröllopsresa. Du kan bidra via MobilePay till Arttu eller Tinya. På så sätt slipper vi ta med oss saker till Italien.',
     'Répondez s’il vous plaît': 'OSA',
     'Tuletko mukaan?': 'Kommer du?',
     'Nimi': 'Namn',
