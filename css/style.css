@@ -781,6 +781,11 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
 .flip-back .flip-hint,
 .schedule-row b { color: #6d5841; }
 .flip-back .flip-hint { flex-shrink: 0; }
+.flip-dress-code {
+  margin-top: 12px;
+  color: #6d5841;
+  font: 12px/1.5 var(--sans);
+}
 
 .schedule { display: block; }
 .schedule-row {
@@ -797,6 +802,8 @@ h2 em, h3 em { font-weight: 300; font-style: italic; }
   font-variant-numeric: tabular-nums;
 }
 .schedule-row span { overflow-wrap: break-word; }
+.big-day .schedule-row { grid-template-columns: 88px minmax(0, 1fr); }
+.big-day .schedule-row b { white-space: nowrap; }
 .schedule-detail {
   display: block;
   margin-top: 4px;
