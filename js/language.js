@@ -134,7 +134,7 @@
     'Voinko ilmoittaa erityisruokavaliosta tai allergioista?': 'Kan jag meddela kostbehov eller allergier?',
     'Kyllä. Kerro niistä RSVP-lomakkeen ruokavaliot ja allergiat -kentässä.': 'Ja. Skriv in dem i fältet för kostönskemål och allergier i OSA-formuläret.',
     'Muistaminen': 'Gåvor',
-    'Mikäli haluat kuitenkin muistaa meitä, voit osallistua häämatkamme tukemiseen FI89 5723 0221 3712 27 (Saaja: Arttu Niemelä tai Tinya Tillander).': 'Om du ändå vill uppmärksamma oss kan du bidra till vår bröllopsresa till FI89 5723 0221 3712 27 (Mottagare Arttu Niemelä eller Tinya Tillander).',
+    'Meille tärkeintä on, että saavutte paikalle juhlimaan kanssamme. Mikäli haluat kuitenkin muistaa meitä, voit halutessasi osallistua häämatkamme tukemiseen tilisiirrolla. Tilisiirtotiedot saat pyytämällä meiltä yksityisesti.': 'Det viktigaste för oss är att ni kommer och firar tillsammans med oss. Om ni ändå vill uppmärksamma oss kan ni gärna bidra till vår bröllopsresa via banköverföring. Ni får uppgifterna för överföringen genom att fråga oss privat.',
     'Répondez s’il vous plaît': 'OSA',
     'Tuletko mukaan?': 'Kommer du?',
     'Nimi': 'Namn',
